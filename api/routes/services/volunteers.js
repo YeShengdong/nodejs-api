@@ -15,4 +15,17 @@ router.get('/', function(req, res) {
         })
 })
 
+router.get('/:volunteerID', function(req, res) {
+    const params = req.API.getParams()
+
+    Volunteers
+        .findById(params.volunteerID)
+        .then(data => {
+            req.API.success(data)
+        })
+        .catch(e => {
+            req.API.error500(e)
+        })
+})
+
 module.exports = router

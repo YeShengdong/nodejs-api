@@ -35,8 +35,15 @@ const volunteersSchema = new Schema({
 const model = mongoose.model('Volunteers', volunteersSchema, cllectionName)
 
 class VolunteersModel extends Model {
+    constructor() {
+        super()
+    }
+
+    findById(volunteerID) {
+        return model.find({volunteerID}, this.projection)
+    }
+
     list(params) {
-        const projection = { '_id': 0 }
         const options = {}
 
         if (params.limit) {
@@ -55,7 +62,7 @@ class VolunteersModel extends Model {
             Promise
                 .all([
                     model.countDocuments(),
-                    model.find({serviveTotalTime: { $gte: 0 }}, projection, options)
+                    model.find({serviveTotalTime: { $gte: 0 }}, this.projection, options)
                 ])
                 .then(([count, list]) => {
                     resolve({ count, list })
