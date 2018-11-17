@@ -17,14 +17,14 @@ const volunteersSchema = new Schema({
     gender: { type: String, enum: ['男', '女'] },
     phoneAndEmail: { type: String, default: '' },
     location: { type: String, default: '' },
-    serviveThisYear: { type: Number, default: '0.0' },
+    serviveThisYear: { type: Number, default: 0 },
     serviveLastYear: {
         type: Number,
-        default: '0.0'
+        default: 0
     },
     serviveTotalTime: {
         type: Number,
-        default: '0.0'
+        default: 0
     },
     registerTime: {
         type: Date,
@@ -35,30 +35,6 @@ const volunteersSchema = new Schema({
 const model = mongoose.model('Volunteers', volunteersSchema, cllectionName)
 
 class VolunteersModel extends Model {
-    constructor() {
-        super()
-
-        this.saveFields = ['userID', '']
-    }
-
-    save (params) {
-        return new Promise((resolve, reject) => {
-            let fields = {}
-            const password = params['password']
-            const hasher = crypto.createHash('md5')
-            hasher.update(password, 'utf8')
-            fields.password = hasher.digest('hex')
-
-            const instance = new Model(fields)
-
-            instance.save().then((doc) => {
-                resolve(doc)
-            }).catch((e) => {
-                reject(e)
-            })
-        })
-    }
-
     list(params) {
         const projection = { '_id': 0 }
         const options = {}
@@ -79,7 +55,7 @@ class VolunteersModel extends Model {
             Promise
                 .all([
                     model.countDocuments(),
-                    model.find(null, projection, options)
+                    model.find({serviveTotalTime: { $gte: 0 }}, projection, options)
                 ])
                 .then(([count, list]) => {
                     resolve({ count, list })
@@ -88,6 +64,32 @@ class VolunteersModel extends Model {
                     reject(e)
                 })
         })
+    }
+
+    dataConversion() {
+        model.find().then((doc) => {
+            for (let i = 0; i < doc.length; i++) {
+                const item = doc[i]
+                const setData = {
+                    $set: {
+                        serviveTotalTime: parseFloat(item.serviveTotalTime),
+                        serviveLastYear: parseFloat(item.serviveLastYear),
+                        serviveThisYear: parseFloat(item.serviveThisYear),
+                        age: parseFloat(item.age)
+                    }
+                }
+
+                model
+                    .updateOne({'volunteerID': item.volunteerID}, setData)
+                    .then((doc) => {
+                        console.log('success')
+                    }).catch(e => {
+                        console.log(e)
+                    });
+            }
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 }
 
