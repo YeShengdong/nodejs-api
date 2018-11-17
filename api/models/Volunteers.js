@@ -94,6 +94,11 @@ class VolunteersModel extends Model {
             options.limit = paging.limit
         }
 
+        if (params.sort) {
+            options.sort = {}
+            options.sort[params.sort] = -1
+        }
+
         return new Promise((resolve, reject) => {
             Promise
                 .all([
