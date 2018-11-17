@@ -2,6 +2,7 @@
 
 const zlib = require('zlib')
 const Promise = require('bluebird')
+const config = require('../../config')
 const logger = require('log4js').getLogger('api')
 const Fn = require('./Fn.class')
 const code = require('./httpStatusCode')
@@ -14,9 +15,9 @@ class API {
         this.log = ''
         this.startTime = Fn.getTimestamp()
         this.headers = {
-            'Access-Control-Allow-Origin': process.env.API_ALLOW_ORIGIN,
-            'Access-Control-Allow-Methods': process.env.API_ALLOW_METHODS,
-            'Access-Control-Allow-Headers': process.env.API_ALLOW_HEADERS
+            'Access-Control-Allow-Origin': config.api.allowOrigin,
+            'Access-Control-Allow-Methods': config.api.allowMethods,
+            'Access-Control-Allow-Headers': config.api.allowHeaders
         }
     }
 

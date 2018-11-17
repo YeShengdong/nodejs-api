@@ -29,8 +29,7 @@ const volunteersSchema = new Schema({
         required: true
     },
     age: {
-        type: String,
-        default: ''
+        type: Number
     },
     gender: {
         type: String,
@@ -45,15 +44,15 @@ const volunteersSchema = new Schema({
         default: ''
     },
     serviveThisYear: {
-        type: String,
+        type: Number,
         default: '0.0'
     },
     serviveLastYear: {
-        type: String,
+        type: Number,
         default: '0.0'
     },
     serviveTotalTime: {
-        type: String,
+        type: Number,
         default: '0.0'
     },
     registerTime: {

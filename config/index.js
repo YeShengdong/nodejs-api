@@ -7,8 +7,11 @@
 
 const path = require('path')
 const config = {
+    'server': {
+        'port': 3000
+    },
     'api': {
-        'routePrefix': '/api/v1',
+        'basePath': '/api/v1',
         'db': {
             'server': 'mongodb://127.0.0.1:27017/hackathon-api',
             'uid': '',
@@ -19,7 +22,8 @@ const config = {
             'expiresIn': '6h'
         },
         'allowOrigin': '*',
-        'allowMethods': 'PUT, POST, GET, DELETE, OPTIONS, PATCH'
+        'allowMethods': 'PUT, POST, GET, DELETE, OPTIONS, PATCH',
+        'allowHeaders': '*'
     },
     'logger': {
         'level': 'DEBUG',
