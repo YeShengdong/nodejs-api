@@ -9,44 +9,15 @@ const Schema = mongoose.Schema
 const Model = require('./Model')
 
 const volunteersSchema = new Schema({
-    userID: {
-        type: String,
-        required: true,
-        index: true
-    },
-    volunteerID: {
-        type: String,
-        required: true,
-        index: true
-    },
-    name: {
-        type: String,
-        required: true,
-        index: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    age: {
-        type: Number
-    },
-    gender: {
-        type: String,
-        enum: ['男', '女']
-    },
-    phoneAndEmail: {
-        type: String,
-        default: ''
-    },
-    location: {
-        type: String,
-        default: ''
-    },
-    serviveThisYear: {
-        type: Number,
-        default: '0.0'
-    },
+    userID: { type: String, required: true, index: true },
+    volunteerID: { type: String, required: true, index: true },
+    name: { type: String, required: true, index: true },
+    password: { type: String, required: true },
+    age: { type: Number },
+    gender: { type: String, enum: ['男', '女'] },
+    phoneAndEmail: { type: String, default: '' },
+    location: { type: String, default: '' },
+    serviveThisYear: { type: Number, default: '0.0' },
     serviveLastYear: {
         type: Number,
         default: '0.0'
@@ -64,6 +35,12 @@ const volunteersSchema = new Schema({
 const model = mongoose.model('Volunteers', volunteersSchema, cllectionName)
 
 class VolunteersModel extends Model {
+    constructor() {
+        super()
+
+        this.saveFields = ['userID', '']
+    }
+
     save (params) {
         return new Promise((resolve, reject) => {
             let fields = {}

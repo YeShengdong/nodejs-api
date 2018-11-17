@@ -1,8 +1,8 @@
 'use strict'
 
-let API = require('../lib/API.class')
+const API = require('../lib/API.class')
 
-exports.init = (req, res, next) => {
+module.exports = (req, res, next) => {
     req.API = new API(req, res)
 
     if (req.API.method === 'OPTIONS') {

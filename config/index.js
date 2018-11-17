@@ -25,6 +25,9 @@ const config = {
         'allowMethods': 'PUT, POST, GET, DELETE, OPTIONS, PATCH',
         'allowHeaders': '*'
     },
+    'swagger': {
+        'version': '1.0'
+    },
     'logger': {
         'level': 'DEBUG',
         'logPath': path.join(__dirname, '/../logs/'),

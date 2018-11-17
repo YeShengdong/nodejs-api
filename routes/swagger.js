@@ -5,11 +5,13 @@ const fs = require('fs')
 const config = require('../config')
 
 router.get('/', function(req, res) {
-    const defpath = path.join(__dirname, '../')
-    const fileDirectory = path.join(defpath, 'public/swagger-dist/')
-    const newFilePath = fileDirectory + 'new-swagger.json'
+    const root = path.join(__dirname, '../')
+    const version = config.swagger.version
+    const fileDirectory = path.join(root, 'public/swagger-dist/')
+    const newFilePath = `${fileDirectory}swagger-${version}.json`
     const staticPath = '/swagger-dist/'
-
+    const jsonPath = `${staticPath}swagger-${version}.json`
+    
     if (!fs.existsSync(newFilePath)) {
         const filePath = fileDirectory + 'swagger.json'
         const result = JSON.parse(fs.readFileSync(filePath));
@@ -20,7 +22,7 @@ router.get('/', function(req, res) {
         fs.writeFileSync(newFilePath, JSON.stringify(result));
     }
 
-    res.render('swagger', { staticPath })
+    res.render('swagger', { staticPath, jsonPath })
 })
 
 module.exports = router;
