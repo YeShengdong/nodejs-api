@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     const newFilePath = `${fileDirectory}swagger-${version}.json`
     const staticPath = '/swagger-dist/'
     const jsonPath = `${staticPath}swagger-${version}.json`
-    
+
     if (!fs.existsSync(newFilePath)) {
         const filePath = fileDirectory + 'swagger.json'
         const result = JSON.parse(fs.readFileSync(filePath));

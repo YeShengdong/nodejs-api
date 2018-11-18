@@ -6,19 +6,8 @@ const mongoose = require('mongoose')
 const dbUrl = config.api.db.server
 let dbOptions = null
 
-// logger.setLevel(config.logger.level)
-
-/**
- * 连接
- */
-
-// Use native promises
-// mongoose.Promise = global.Promise;
-// assert.equal(query.exec().constructor, global.Promise);
-
 // Use bluebird
 mongoose.Promise = require('bluebird')
-// assert.equal(query.exec().constructor, require('bluebird'));
 
 if (config.api.db.uid !== '') {
     dbOptions = {
@@ -38,23 +27,14 @@ mongoose.connect(dbUrl, dbOptions)
 
 const db = mongoose.connection
 
-/**
- * 连接成功
- */
 db.on('connected', () => {
     logger.info('Mongoose connection open to ' + dbUrl)
 })
 
-/**
- * 连接异常
- */
 db.on('error', (err) => {
     logger.error('Mongoose connection error: ' + err)
 })
 
-/**
- * 连接断开
- */
 db.on('disconnected', () => {
     logger.warn('Mongoose connection disconnected')
 })

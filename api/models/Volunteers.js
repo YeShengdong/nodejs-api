@@ -18,18 +18,9 @@ const volunteersSchema = new Schema({
     phoneAndEmail: { type: String, default: '' },
     location: { type: String, default: '' },
     serviveThisYear: { type: Number, default: 0 },
-    serviveLastYear: {
-        type: Number,
-        default: 0
-    },
-    serviveTotalTime: {
-        type: Number,
-        default: 0
-    },
-    registerTime: {
-        type: Date,
-        default: Date.now
-    }
+    serviveLastYear: { type: Number, default: 0 },
+    serviveTotalTime: { type: Number, default: 0 },
+    registerTime: { type: Date, default: Date.now }
 })
 
 const model = mongoose.model('Volunteers', volunteersSchema, cllectionName)

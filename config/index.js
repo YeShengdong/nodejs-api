@@ -17,16 +17,12 @@ const config = {
             'uid': '',
             'pwd': ''
         },
-        'token': {
-            'secret': 'testToken',
-            'expiresIn': '6h'
-        },
         'allowOrigin': '*',
         'allowMethods': 'PUT, POST, GET, DELETE, OPTIONS, PATCH',
         'allowHeaders': '*'
     },
     'swagger': {
-        'version': '1.0'
+        'version': '1.1'
     },
     'logger': {
         'level': 'DEBUG',

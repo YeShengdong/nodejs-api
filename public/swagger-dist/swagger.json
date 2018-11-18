@@ -1077,7 +1077,7 @@
     "Volunteers": {
       "type": "object",
       "required": [
-        "email",
+        "phone",
         "password"
       ],
       "properties": {
@@ -1096,27 +1096,11 @@
         "email": {
           "type": "string"
         },
-        "password": {
+        "phone": {
           "type": "string"
         },
-        "photoUrls": {
-          "type": "array",
-          "xml": {
-            "name": "photoUrl",
-            "wrapped": true
-          },
-          "items": {
-            "type": "string"
-          }
-        },
-        "status": {
-          "type": "string",
-          "description": "pet status in the store",
-          "enum": [
-            "available",
-            "pending",
-            "sold"
-          ]
+        "password": {
+          "type": "string"
         }
       },
       "xml": {
