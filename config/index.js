@@ -8,7 +8,7 @@
 const path = require('path')
 const config = {
     'server': {
-        'port': 3000
+        'port': 3200
     },
     'api': {
         'basePath': '/api/v1',
