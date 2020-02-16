@@ -1,42 +1,38 @@
 'use strict'
 
+const Sequelize = require('sequelize')
 const config = require('../../config')
-const logger = require('log4js').getLogger('mongodb')
-const mongoose = require('mongoose')
-const dbUrl = config.api.db.server
-let dbOptions = null
-
-// Use bluebird
-mongoose.Promise = require('bluebird')
-
-if (config.api.db.uid !== '') {
-    dbOptions = {
-        useMongoClient: true,
-        user: config.api.db.uid,
-        pass: config.api.db.pwd,
-        reconnectTries: Number.MAX_VALUE,   // Never stop trying to reconnect
-        reconnectInterval: 3000,    // Reconnect every 3000ms
-        poolSize: 10,   // Maintain up to 10 socket connections
-        // If not connected, return errors immediately rather than waiting for reconnect
-        bufferMaxEntries: 0,
-        keepAlive: 120
+const logger = require('log4js').getLogger('mysql')
+const {
+    api: {
+        db: dbConfig
     }
-}
+} = config;
+const env = process.env;
+const sqlConfig = {
+    database: env.DB_DATABASE || dbConfig.database,
+    username: env.DB_USERNAME || dbConfig.username,
+    password: env.DB_PASSWORD || dbConfig.password,
+    host: env.DB_HOST || dbConfig.host,
+    port: env.DB_PORT || dbConfig.port
+};
 
-mongoose.connect(dbUrl, dbOptions)
+const sequelize = new Sequelize(sqlConfig.database, sqlConfig.username, sqlConfig.password, {
+    host: sqlConfig.host,
+    port: sqlConfig.port,
+    dialect: 'mysql'
+});
 
-const db = mongoose.connection
+sequelize
+    .authenticate()
+    .then(() => {
+        logger.info('Database connection has been established successfully.');
+    })
+    .catch(err => {
+        logger.error('Unable to connect to the database:', err);
+    });
 
-db.on('connected', () => {
-    logger.info('Mongoose connection open to ' + dbUrl)
-})
-
-db.on('error', (err) => {
-    logger.error('Mongoose connection error: ' + err)
-})
-
-db.on('disconnected', () => {
-    logger.warn('Mongoose connection disconnected')
-})
-
-module.exports = mongoose
+module.exports = {
+    sequelize,
+    Sequelize  
+};

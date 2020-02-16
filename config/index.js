@@ -13,9 +13,11 @@ const config = {
     'api': {
         'basePath': '/api/v1',
         'db': {
-            'server': 'mongodb://127.0.0.1:27017/hackathon-api',
-            'uid': '',
-            'pwd': ''
+            'host': 'localhost',
+            'port': 3306,
+            'database': 'nodejs-api',
+            'username': 'root',
+            'password': 'root'
         },
         'allowOrigin': '*',
         'allowMethods': 'PUT, POST, GET, DELETE, OPTIONS, PATCH',

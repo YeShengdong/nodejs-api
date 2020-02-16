@@ -20,18 +20,18 @@ const log4jsConfig = {
             'maxLogSize': maxLogSize,
             'category': 'api'
         },
-        'mongodb': {
+        'mysql': {
             'type': 'dateFile',
-            'filename': path.join(config.logger.logPath, '/mongodb/mongodb.log'),
+            'filename': path.join(config.logger.logPath, '/mysql/mysql.log'),
             'pattern': '-yyyy-MM-dd',
             'maxLogSize': maxLogSize,
-            'category': 'mongodb'
+            'category': 'mysql'
         }
     },
     'categories': {
         'default': { 'appenders': [ 'access' ], 'level': level },
         'http': { 'appenders': [ 'access' ], 'level': level },
-        'mongodb': { 'appenders': [ 'mongodb' ], 'level': level },
+        'mysql': { 'appenders': [ 'mysql' ], 'level': level },
         'api': { 'appenders': [ 'api' ], 'level': level }
     }
 }
